@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="css.css" media="screen">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img th:src="@{logo10.png}" class="rounded mx-auto d-block" alt="">
+            </a>
+        </div>
+    </nav>
+</header>
+<body>
+<div id="pokedex">
+    <div id="left">
+        <div id="logo"></div>
+        <div id="bg_curve1_left"></div>
+        <div id="bg_curve2_left"></div>
+        <div id="curve1_left">
+            <div id="buttonGlass">
+                <div id="reflect"></div>
+            </div>
+            <div id="miniButtonGlass1"></div>
+            <div id="miniButtonGlass2"></div>
+            <div id="miniButtonGlass3"></div>
+        </div>
+        <div id="curve2_left">
+            <div id="junction">
+                <div id="junction1"></div>
+                <div id="junction2"></div>
+            </div>
+        </div>
+        <div id="screen">
+            <div id="topPicture">
+                <div id="buttontopPicture1"></div>
+                <div id="buttontopPicture2"></div>
+            </div>
+            <div id="picture">
+                <img id="imgNormal_Frente_Macho" th:src="${pokemon.sprites.front_default}" alt="Nao Existe"
+                     height="170"/>
+                <img id="imgShiny_Frente_Macho" th:src="${pokemon.sprites.front_shiny}"
+                     onerror="if (this.src != 'error.jpg') this.src ='paginaBranca.png';" alt="Nao Existe"
+                     height="170"/>
+                <img id="imgNormal_Frente_Femea" th:src="${pokemon.sprites.front_female}"
+                     onerror="if (this.src != 'error.jpg') this.src ='paginaBranca.png';" alt="Nao Existe"
+                     height="170"/>
+                <img id="imgShiny_Frente_Femea" th:src="${pokemon.sprites.front_shiny_female}"
+                     onerror="if (this.src != 'error.jpg') this.src ='paginaBranca.png';" alt="Nao Existe"
+                     height="170"/>
+                <img id="imgNormal_Costas_Macho" th:src="${pokemon.sprites.back_default}"
+                     onerror="if (this.src != 'error.jpg') this.src= 'paginaBranca.png';" alt="Nao Existe"
+                     height="170"/>
+                <img id="imgShiny_Costas_Macho" th:src="${pokemon.sprites.back_shiny}"
+                     onerror="if (this.src != 'error.jpg') this.src= 'paginaBranca.png';" alt="Nao Existe"
+                     height="170"/>
+                <img id="imgNormal_Costas_Femea" th:src="${pokemon.sprites.back_female}"
+                     onerror="if (this.src != 'error.jpg') this.src= 'paginaBranca.png';" alt="Nao Existe"
+                     height="170"/>
+                <img id="imgShiny_Costas_Femea" th:src="${pokemon.sprites.back_shiny_female}"
+                     onerror="if (this.src != 'error.jpg') this.src= 'paginaBranca.png';" alt="Nao Existe"
+                     height="170"/>
+            </div>
+            <div id="buttonbottomPicture" onclick="play()">
+                <audio id="audio" th:src="@{{numero}.ogg(numero=${pokemon.idpagina})}" ></audio>
+            </div>
+            <div id="speakers">
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+            </div>
+        </div>
+        <div id="bigbluebutton"></div>
+        <div id="barbutton1"></div>
+        <div id="barbutton2"></div>
+        <div id="cross">
+            <a th:href="@{goncadex(id=${pokemon.idpagina}-1)}">
+                <div id="leftcross" class="nav">
+                    <div id="leftT"></div>
+                </div>
+            </a>
+            <a th:href="@{goncadex(id=${pokemon.idpagina}+10)}">
+                <div id="topcross" class="nav">
+                    <div id="upT"></div>
+                </div>
+            </a>
+            <a th:href="@{goncadex(id=${pokemon.idpagina}+1)}">
+                <div id="rightcross" class="nav">
+                    <div id="rightT"></div>
+                </div>
+            </a>
+            <div id="midcross">
+                <div id="midCircle"></div>
+            </div>
+            <div id="botcross" class="nav">
+                <a th:href="@{goncadex(id=${pokemon.idpagina}-10)}" id="downT"></a>
+            </div>
+        </div>
+    </div>
+    <div id="right">
+        <div id="stats1">
+
+
+            <form method="post">
+                <div class="form-group row">
+                    <input class="form-control" type="text" name="nome" placeholder="Nome Do Pokemon">
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary mb-2">Pesquisar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="stats">
+            <strong>Nome:</strong> <span th:text="${pokemon.name}"></span><br/>
+            <strong>Tipo:</strong> <span th:each="pokemon : ${pokemon.types}">
+                <span th:text="${pokemon.type.name}"></span></span>
+            <br><strong>Altura:</strong><span th:text="${pokemon.height}+ .M"></span><br/>
+            <strong>Peso(Kg):</strong><span th:text="${pokemon.weight}+ .Kg "></span><br/><br/>
+            <strong>Habilidades:</strong><br/>
+            <span th:each="pokemon : ${pokemon.abilities}">
+                <span th:text="${pokemon.ability.name}"></span>
+                <strong>,</strong>
+            </span>
+        </div>
+        <div id="blueButtons1">
+            <div id="bazul1" class="blueButton"></div>
+            <div id="bazul2" class="blueButton"></div>
+            <div id="bazul3" class="blueButton"></div>
+            <div id="bazul4" class="blueButton"></div>
+            <div id="bazul5" class="blueButton"></div>
+        </div>
+        <div id="blueButtons2">
+            <div id="bazulinf1" class="blueButton"></div>
+            <div id="bazulinf2" class="blueButton"></div>
+            <div id="bazulinf3" class="blueButton"></div>
+            <div id="bazulinf4" class="blueButton"></div>
+            <div id="bazulinf5" class="blueButton"></div>
+        </div>
+        <div id="miniButtonGlass4"></div>
+        <div id="miniButtonGlass5"></div>
+        <div id="barbutton3"></div>
+        <div id="barbutton4"></div>
+        <div id="yellowBox1">
+            <br>
+            <strong><p Id="TxtSexo" class="text-center">Sexo -> Macho</p></strong>
+        </div>
+        <div id="yellowBox2">
+            <br>
+            <strong><p Id="TxtTipo" class="text-center">Tipo -> Normal</p></strong>
+        </div>
+        <div id="bg_curve1_right"></div>
+        <div id="bg_curve2_right"></div>
+        <div id="curve1_right"></div>
+        <div id="curve2_right"></div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+        $("#imgNormal_Frente_Femea").hide();
+        $("#imgShiny_Frente_Femea").hide();
+        $("#imgShiny_Frente_Macho").hide();
+        $("#imgNormal_Costas_Macho").hide();
+        $("#imgNormal_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").hide();
+        $("#imgShiny_Costas_Femea").hide();
+        $("#stats1").hide();
+});
+
+   $("#bazul5").click(function(event){
+       $("#stats").hide();
+       $("#stats1").show();
+   });
+
+   $("#bazulinf5").click(function(event){
+         $("#stats").show();
+         $("#stats1").hide();
+   });
+
+<!--Primeira sequencia de botoes-->
+   $("#bazul1").click(function(event){
+        $("#imgNormal_Frente_Femea").hide();
+        $("#imgNormal_Frente_Macho").hide();
+        $("#imgShiny_Frente_Femea").hide();
+        $("#imgShiny_Frente_Macho").hide();
+        $("#imgNormal_Costas_Macho").hide();
+        $("#imgNormal_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").hide();
+        $("#imgShiny_Costas_Femea").hide();
+        $("#imgNormal_Frente_Macho").show();
+        $("#TxtSexo").text("MACHO");
+        $("#TxtTipo").text("NORMAL");
+ });
+ $("#bazulinf1").click(function(event){
+        $("#imgNormal_Frente_Femea").hide();
+        $("#imgNormal_Frente_Macho").hide();
+        $("#imgShiny_Frente_Femea").hide();
+        $("#imgShiny_Frente_Macho").hide();
+        $("#imgNormal_Costas_Macho").hide();
+        $("#imgNormal_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").hide();
+        $("#imgShiny_Costas_Femea").hide();
+        $("#imgNormal_Frente_Femea").show();
+        $("#TxtSexo").text("FEMEA");
+        $("#TxtTipo").text("NORMAL");
+ });
+ <!--Segunda sequencia de botoes-->
+ $("#bazul2").click(function(event){
+        $("#imgNormal_Frente_Femea").hide();
+        $("#imgNormal_Frente_Macho").hide();
+        $("#imgShiny_Frente_Femea").hide();
+        $("#imgShiny_Frente_Macho").hide();
+        $("#imgNormal_Costas_Macho").hide();
+        $("#imgNormal_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").hide();
+        $("#imgShiny_Costas_Femea").hide();
+        $("#imgShiny_Frente_Macho").show();
+        $("#TxtSexo").text("MACHO");
+        $("#TxtTipo").text("SHINY");
+ });
+ $("#bazulinf2").click(function(event){
+        $("#imgNormal_Frente_Femea").hide();
+        $("#imgNormal_Frente_Macho").hide();
+        $("#imgShiny_Frente_Femea").hide();
+        $("#imgShiny_Frente_Macho").hide();
+        $("#imgNormal_Costas_Macho").hide();
+        $("#imgNormal_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").hide();
+        $("#imgShiny_Costas_Femea").hide();
+        $("#imgShiny_Frente_Femea").show();
+        $("#TxtSexo").text("FEMEA");
+        $("#TxtTipo").text("SHINY");
+ });
+ <!--Terceira sequencia de botoes-->
+  $("#bazul3").click(function(event){
+        $("#imgNormal_Frente_Femea").hide();
+        $("#imgNormal_Frente_Macho").hide();
+        $("#imgShiny_Frente_Femea").hide();
+        $("#imgShiny_Frente_Macho").hide();
+        $("#imgNormal_Costas_Macho").hide();
+        $("#imgNormal_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").hide();
+        $("#imgShiny_Costas_Femea").hide();
+        $("#imgNormal_Costas_Macho").show();
+        $("#TxtSexo").text("MACHO");
+        $("#TxtTipo").text("NORMAL");
+ });
+ $("#bazulinf3").click(function(event){
+        $("#imgNormal_Frente_Femea").hide();
+        $("#imgNormal_Frente_Macho").hide();
+        $("#imgShiny_Frente_Femea").hide();
+        $("#imgShiny_Frente_Macho").hide();
+        $("#imgNormal_Costas_Macho").hide();
+        $("#imgNormal_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").hide();
+        $("#imgShiny_Costas_Femea").hide();
+        $("#imgNormal_Costas_Femea").show();
+        $("#TxtSexo").text("FEMEA");
+        $("#TxtTipo").text("NORMAL");
+ });
+ <!--Quarta sequencia de botoes-->
+   $("#bazul4").click(function(event){
+        $("#imgNormal_Frente_Femea").hide();
+        $("#imgNormal_Frente_Macho").hide();
+        $("#imgShiny_Frente_Femea").hide();
+        $("#imgShiny_Frente_Macho").hide();
+        $("#imgNormal_Costas_Macho").hide();
+        $("#imgNormal_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").hide();
+        $("#imgShiny_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").show();
+        $("#TxtSexo").text("FEMEA");
+        $("#TxtTipo").text("SHINY");
+ });
+ $("#bazulinf4").click(function(event){
+        $("#imgNormal_Frente_Femea").hide();
+        $("#imgNormal_Frente_Macho").hide();
+        $("#imgShiny_Frente_Femea").hide();
+        $("#imgShiny_Frente_Macho").hide();
+        $("#imgNormal_Costas_Macho").hide();
+        $("#imgNormal_Costas_Femea").hide();
+        $("#imgShiny_Costas_Macho").hide();
+        $("#imgShiny_Costas_Femea").hide();
+        $("#imgShiny_Costas_Femea").show();
+        $("#TxtSexo").text("MACHO");
+        $("#TxtTipo").text("SHINY");
+ });
+</script>
+<script>
+
+      function play() {
+        var audio = document.getElementById("audio");
+        audio.play();
+      }
+    </script>
+</html>

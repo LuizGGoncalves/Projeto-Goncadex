@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Sons dos Pokemons ##
+/src/main/resources/static/cries/
+/src/main/resources/static/cries/*
