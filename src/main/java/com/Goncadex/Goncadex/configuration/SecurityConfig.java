@@ -12,7 +12,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTH_LIST = {
             "/test",
-            "/goncadex"
+            "/goncadex",
+            "/pokeGon",
+            "/login",
+            "/pokeGon/registro"
     };
 
     @Override

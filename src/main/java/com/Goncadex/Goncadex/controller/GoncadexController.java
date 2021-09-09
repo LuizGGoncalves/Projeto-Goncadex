@@ -6,6 +6,7 @@ import com.Goncadex.Goncadex.model.Usuario;
 import com.Goncadex.Goncadex.service.GoncadexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,15 +20,22 @@ public class GoncadexController {
     @Autowired
     private GoncadexService goncadexService;
 
-    @GetMapping("/test")
-    public ModelAndView test() {
-        ModelAndView mv = new ModelAndView("test");
-        goncadexService.cadastrarUsuario( "Luiz","123");
-        Usuario usuario = goncadexService.procurarUsuario("Luiz");
-        goncadexService.capturarpokemon("marquinhos",usuario);
+    @GetMapping("/pokeGon")
+    public ModelAndView index() {
+        ModelAndView mv = new ModelAndView("Index");
         return mv;
     }
+    @GetMapping("/registro")
+    public ModelAndView registo() {
+        ModelAndView mv = new ModelAndView("registro");
+        return mv;
+    }
+    @PostMapping("/registro")
+    public String cadastro(String usuario,String senha){
+        cadastro(usuario, senha);
+      return "redirect:/login";
 
+    }
     @GetMapping("/goncadex")
     public ModelAndView buscaPokemon(@RequestParam(required = false) String id) {
         ModelAndView mv = new ModelAndView("pokemons");
