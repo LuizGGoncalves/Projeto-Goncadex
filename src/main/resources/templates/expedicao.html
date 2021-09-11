@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="css.css" media="screen">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">
+                <img th:src="@{logoPrincipal.png}" alt="">
+                <img th:src="@{mascote.png}" height="100" width="100" alt="Mascote">
+            </a>
+        </div>
+    </nav>
+</header>
+<div>
+    <span th:text="'  O jogador ' + ${usuario.usuario} + ' encontrou um ' + ${pokemon.name}  "></span>
+</div>
+<div>
+    <img th:src="${pokemon.sprites.front_default}">
+</div>
+<div>
+    <a methods="post" href="/expedicao/capturar" class="btn btn-primary" type="button">Capturar</a>
+</div>
+<div>
+    <a methods="post" href="/expedicao/matar" class="btn btn-primary" type="button">Matar</a>
+</div>
+<body>
+
+</body>
+</html>

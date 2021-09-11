@@ -53,9 +53,12 @@
     </div>
     <div class="row">
         <div class="mx-auto">
-            <button class="btn btn-primary" type="button">Login</button>
-            <button class="btn btn-primary" type="button">Cadastrar</button>
+            <a href="/login" class="btn btn-primary" type="button">Login</a>
+            <a href="/registro" class="btn btn-primary" type="button">Cadastrar</a>
         </div>
+    </div>
+    <div>
+        <span th:text="${user}"></span>
     </div>
 </div>
 </body>

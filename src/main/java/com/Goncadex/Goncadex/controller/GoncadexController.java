@@ -2,11 +2,11 @@ package com.Goncadex.Goncadex.controller;
 
 import com.Goncadex.Goncadex.model.Pokemon;
 import com.Goncadex.Goncadex.model.PokemonIdentificador;
-import com.Goncadex.Goncadex.model.Usuario;
-import com.Goncadex.Goncadex.service.GoncadexService;
+import com.Goncadex.Goncadex.service.PokemonIdentificadorService;
+import com.Goncadex.Goncadex.service.PokemonService;
+import com.Goncadex.Goncadex.service.serviceImplements.UsuarioServiceImplements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,24 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class GoncadexController {
 
     @Autowired
-    private GoncadexService goncadexService;
+    private PokemonIdentificadorService pokemonIdentificadorService;
+    @Autowired
+    private UsuarioServiceImplements usuarioServiceImplements;
+    @Autowired
+    private PokemonService pokemonService;
 
-    @GetMapping("/pokeGon")
-    public ModelAndView index() {
-        ModelAndView mv = new ModelAndView("Index");
-        return mv;
-    }
-    @GetMapping("/registro")
-    public ModelAndView registo() {
-        ModelAndView mv = new ModelAndView("registro");
-        return mv;
-    }
-    @PostMapping("/registro")
-    public String cadastro(String usuario,String senha){
-        cadastro(usuario, senha);
-      return "redirect:/login";
-
-    }
     @GetMapping("/goncadex")
     public ModelAndView buscaPokemon(@RequestParam(required = false) String id) {
         ModelAndView mv = new ModelAndView("pokemons");
@@ -44,35 +32,35 @@ public class GoncadexController {
         if (idinteiro > 898) {
             idinteiro = idinteiro - 898;
             String idstring = Integer.toString(idinteiro);
-            Pokemon pokemon = goncadexService.procurarPokemon(idstring);
+            Pokemon pokemon = pokemonService.procurarPokemon(idstring);
             pokemon.setIdpagina(idinteiro);
             //            Salvando as informaçoes no banco de dados
             pokemonIdentificador.setPokemonid(pokemon.getId());
             pokemonIdentificador.setPokemonNome(pokemon.getName());
-            goncadexService.save(pokemonIdentificador);
+            pokemonIdentificadorService.save(pokemonIdentificador);
             //            Continuaçao Normal
             mv.addObject("pokemon", pokemon);
             return mv;
         } else if (idinteiro < 1) {
             idinteiro = idinteiro + 898;
             String idstring = Integer.toString(idinteiro);
-            Pokemon pokemon = goncadexService.procurarPokemon(idstring);
+            Pokemon pokemon = pokemonService.procurarPokemon(idstring);
             pokemon.setIdpagina(idinteiro);
             //            Salvando as informaçoes no banco de dados
             pokemonIdentificador.setPokemonid(pokemon.getId());
             pokemonIdentificador.setPokemonNome(pokemon.getName());
-            goncadexService.save(pokemonIdentificador);
+            pokemonIdentificadorService.save(pokemonIdentificador);
             //            Continuaçao Normal
             mv.addObject("pokemon", pokemon);
             return mv;
         } else {
             String idString = Integer.toString(idinteiro);
-            Pokemon pokemon = goncadexService.procurarPokemon(idString);
+            Pokemon pokemon = pokemonService.procurarPokemon(idString);
             pokemon.setIdpagina(idinteiro);
             //            Salvando as informaçoes no banco de dados
             pokemonIdentificador.setPokemonid(pokemon.getId());
             pokemonIdentificador.setPokemonNome(pokemon.getName());
-            goncadexService.save(pokemonIdentificador);
+            pokemonIdentificadorService.save(pokemonIdentificador);
             //            Continuaçao Normal
             mv.addObject("pokemon", pokemon);
             return mv;
@@ -82,21 +70,22 @@ public class GoncadexController {
     @PostMapping("/goncadex")
     public String pesquisaPokemon(String nome) {
         System.out.println(nome);
-        PokemonIdentificador pesquisa = goncadexService.procurarPorNome(nome);
+        PokemonIdentificador pesquisa = pokemonIdentificadorService.procurarPorNome(nome);
         String redireciona = "redirect:/goncadex?id=";
         String pagina = Integer.toString(pesquisa.getPokemonid());
         return redireciona + pagina;
 
     }
+
     @GetMapping("/refresh")
     public String refresh() {
         for(int i= 1; i < 898; i++  ){
             String contadorString = Integer.toString(i);
-            Pokemon pokemon = goncadexService.procurarPokemon(contadorString);
+            Pokemon pokemon = pokemonService.procurarPokemon(contadorString);
             PokemonIdentificador pokemonIdentificador = new PokemonIdentificador();
             pokemonIdentificador.setPokemonNome(pokemon.getName());
             pokemonIdentificador.setPokemonid(pokemon.getId());
-            goncadexService.save(pokemonIdentificador);
+            pokemonIdentificadorService.save(pokemonIdentificador);
         }
         return "redirect:/pokemon?id=1";
 
