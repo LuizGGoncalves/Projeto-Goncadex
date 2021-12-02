@@ -37,13 +37,26 @@
                     <a class="nav-link active" href="#">Loja</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/CentroPokemon" >Centro Pokemon</a>
+                    <a class="nav-link active">Centro Pokemon</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
+<div class="card mx-auto" style="width: 18rem;" th:each="usuario : ${usuario.pokemonsUsuario}">
+    <img th:src="${usuario.sprite}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">
+            <span th:text="${usuario.name}"></span>
+        </h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item" th:text="'Ataque->'+ ${usuario.Ataque}"></li>
+        <li class="list-group-item" th:text="'Defesa->'+ ${usuario.defesa}"></li>
+        <li class="list-group-item" th:text="'Velocidade->'+ ${usuario.velocidade}"></li>
+        <li class="list-group-item" th:text="'Vida->'+ ${usuario.vida}"></li>
+    </ul>
+</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -1,9 +1,6 @@
 package com.Goncadex.Goncadex.service.serviceImplements;
 
-import com.Goncadex.Goncadex.model.Expedicao;
-import com.Goncadex.Goncadex.model.Pokemon;
-import com.Goncadex.Goncadex.model.PokemonCapturado;
-import com.Goncadex.Goncadex.model.Usuario;
+import com.Goncadex.Goncadex.model.*;
 import com.Goncadex.Goncadex.repository.ExpedicaoRepository;
 import com.Goncadex.Goncadex.repository.PokemonCapturadoRepository;
 import com.Goncadex.Goncadex.service.ExpedicaoService;
@@ -93,10 +90,18 @@ public class ExpedicaoServiceImplements implements ExpedicaoService {
             Expedicao expedicao = expedicaoRepository.findByUser(usuarioLogado.getUsuario());
             Pokemon pokemon = pokemonService.procurarPokemon(expedicao.getPokemonid());
             PokemonCapturado pokemonCapturado = new PokemonCapturado();
-            pokemonCapturado.setIdentificador(Integer.toString(pokemon.getId()));
+            pokemonCapturado.setId(pokemon.getId());
             pokemonCapturado.setDono(usuarioLogado.getId());
-            pokemonCapturado.setRaça(pokemon.getName());
+            pokemonCapturado.setName(pokemon.getName());
             pokemonCapturado.setNomePokemonCapturado("cleitinho");
+            pokemonCapturado.setHeight(pokemon.getHeight());
+            pokemonCapturado.setWeight(pokemon.getWeight());
+            pokemonCapturado.setAtaque(pokemon.getHeight()*2+pokemon.getWeight()*3);
+            pokemonCapturado.setDefesa(pokemon.getHeight()+ pokemon.getWeight());
+            pokemonCapturado.setVelocidade(pokemon.getWeight()/(pokemon.getHeight()*pokemon.getHeight()));
+            pokemonCapturado.setVida(pokemon.getHeight()*pokemon.getWeight());
+            PokemonSprites pokemonSprites = pokemon.getSprites();
+            pokemonCapturado.setSprite(pokemonSprites.getFront_default());
             pokemonCapturadoRepository.save(pokemonCapturado);
             expedicaoRepository.delete(expedicao);
         }
