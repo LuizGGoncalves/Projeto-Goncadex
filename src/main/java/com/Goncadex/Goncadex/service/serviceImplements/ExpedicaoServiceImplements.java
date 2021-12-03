@@ -83,7 +83,7 @@ public class ExpedicaoServiceImplements implements ExpedicaoService {
     }
 
     @Override
-    public void capturar() {
+    public void capturar(String nome) {
         Boolean situacao = verificarExpedicao();
         if(situacao){
             Usuario usuarioLogado = usuarioService.getUsuarioLogado();
@@ -93,14 +93,19 @@ public class ExpedicaoServiceImplements implements ExpedicaoService {
             pokemonCapturado.setId(pokemon.getId());
             pokemonCapturado.setDono(usuarioLogado.getId());
             pokemonCapturado.setName(pokemon.getName());
-            pokemonCapturado.setNomePokemonCapturado("cleitinho");
+            pokemonCapturado.setNomePokemonCapturado(nome);
             pokemonCapturado.setHeight(pokemon.getHeight());
             pokemonCapturado.setWeight(pokemon.getWeight());
+
+
             pokemonCapturado.setAtaque(pokemon.getHeight()*2+pokemon.getWeight()*3);
             pokemonCapturado.setDefesa(pokemon.getHeight()+ pokemon.getWeight());
             pokemonCapturado.setVelocidade(pokemon.getWeight()/(pokemon.getHeight()*pokemon.getHeight()));
-            pokemonCapturado.setVida(pokemon.getHeight()*pokemon.getWeight());
+            pokemonCapturado.setVidaMaxima(pokemon.getHeight()*pokemon.getWeight());
+            pokemonCapturado.setVidaCombate(pokemonCapturado.getVidaMaxima());
             PokemonSprites pokemonSprites = pokemon.getSprites();
+
+
             pokemonCapturado.setSprite(pokemonSprites.getFront_default());
             pokemonCapturadoRepository.save(pokemonCapturado);
             expedicaoRepository.delete(expedicao);

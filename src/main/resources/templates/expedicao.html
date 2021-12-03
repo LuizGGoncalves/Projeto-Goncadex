@@ -15,19 +15,40 @@
         </div>
     </nav>
 </header>
-<div>
-    <span th:text="'  O jogador ' + ${usuario.usuario} + ' encontrou um ' + ${pokemon.name}  "></span>
-</div>
-<div>
-    <img th:src="${pokemon.sprites.front_default}">
-</div>
-<div>
-    <a methods="post" href="/expedicao/capturar" class="btn btn-primary" type="button">Capturar</a>
-</div>
-<div>
-    <a methods="post" href="/expedicao/matar" class="btn btn-primary" type="button">Matar</a>
-</div>
 <body>
-
+<div class="container">
+    <div class="row">
+        <span th:text="'  O jogador ' + ${usuario.usuario} + ' encontrou um ' + ${pokemon.name} + '.' "></span>
+    </div>
+    <div class="row">
+        <div class="mx-auto">
+            <img th:src="${pokemon.sprites.front_default}">
+        </div>
+    </div>
+    <div>
+        <a methods="post" class="btn btn-primary" id="b1" type="button">Capturar</a>
+    </div>
+    <form id="f1" class="form-signin" method="post">
+    <div>
+        <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" required="" autofocus="">
+        <button methods="post" class="btn btn-primary" type="submit">confirmar</button>
+    </div>
+    </form>
+    <div>
+        <a methods="post" href="/expedicao/matar" class="btn btn-primary" type="button">Matar</a>
+    </div>
+</div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+<script>
+        $(document).ready(function() {
+            $("#f1").hide();
+            });
+
+        $("#b1").click(function() {
+                $("#f1").show();
+         });
+    </script>
+
 </html>

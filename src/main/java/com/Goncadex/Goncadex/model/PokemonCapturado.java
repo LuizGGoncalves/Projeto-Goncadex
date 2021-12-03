@@ -30,7 +30,9 @@ public class PokemonCapturado extends Pokemon {
         @NotNull
         private float velocidade;
         @NotNull
-        private float Vida;
+        private float VidaMaxima;
+        @NotNull
+        private float vidaCombate;
         @NotNull
         private String sprite;
 

@@ -28,6 +28,11 @@ public class ExpedicaoController {
         mv.addObject("pokemon",expedicaoService.expedicao());
         return mv;
     }
+    @PostMapping()
+    public  String nome(String nome){
+        expedicaoService.capturar(nome);
+        return "redirect:/user";
+    }
     @GetMapping("/matar")
     public String matar(){
         expedicaoService.matarpokemon();
@@ -35,7 +40,6 @@ public class ExpedicaoController {
     }
     @GetMapping("/capturar")
     public String capturar(){
-        expedicaoService.capturar();
         return "redirect:/user";
     }
 }

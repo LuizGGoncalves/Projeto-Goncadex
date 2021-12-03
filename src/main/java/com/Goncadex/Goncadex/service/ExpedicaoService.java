@@ -9,5 +9,5 @@ public interface ExpedicaoService {
     Expedicao retomarExpedicao();
     Pokemon expedicao();
     void matarpokemon();
-    void capturar();
+    void capturar(String nome);
 }
